@@ -8,7 +8,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'Kerala.dart';
+import 'WebView.dart';
 
 import 'chartsUtils.dart';
 import 'dateRangeDialog.dart';
@@ -44,46 +44,54 @@ class HomePage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RaisedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MyGlobalPage();
-              }));
-            },
-            icon: Icon(Icons.public),
-            label: Text('Global'),
-            color: Colors.amber,
-          ),
-          RaisedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return LocalWebView();
-              }));
-            },
-            icon: Icon(Icons.place),
-            label: Text('Local'),
-            color: Colors.green,
-          ),
-          RaisedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return GuidelinesWebView();
-              }));
-            },
-            icon: Icon(Icons.beenhere),
-            label: Text('WHO Guidelines'),
-            color: Colors.purple,
-          ),
-          RaisedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ContainmentWebView();
-              }));
-            },
-            icon: Icon(Icons.error_outline),
-            label: Text('Containment Zones'),
-            color: Colors.red,
-          ),
+          FractionallySizedBox(
+              widthFactor: 0.8,
+              child: RaisedButton.icon(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return MyGlobalPage();
+                  }));
+                },
+                icon: Icon(Icons.public),
+                label: Text('Global'),
+                color: Colors.amber,
+              )),
+          FractionallySizedBox(
+              widthFactor: 0.8,
+              child: RaisedButton.icon(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LocalWebView();
+                  }));
+                },
+                icon: Icon(Icons.place),
+                label: Text('Local'),
+                color: Colors.green,
+              )),
+          FractionallySizedBox(
+              widthFactor: 0.8,
+              child: RaisedButton.icon(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ContainmentWebView();
+                  }));
+                },
+                icon: Icon(Icons.error_outline),
+                label: Text('Containment Zones'),
+                color: Colors.red,
+              )),
+          FractionallySizedBox(
+              widthFactor: 0.8,
+              child: RaisedButton.icon(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return GuidelinesWebView();
+                  }));
+                },
+                icon: Icon(Icons.beenhere),
+                label: Text('WHO Guidelines'),
+                color: Colors.purple,
+              )),
         ],
       )),
     );
