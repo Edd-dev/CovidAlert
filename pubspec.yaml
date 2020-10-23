@@ -26,6 +26,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.3
   webview_flutter:
+  flutter_launcher_icons: 0.8.1
 
 dev_dependencies:
   flutter_test:
@@ -34,9 +35,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon/icon-ios.png"
-  adaptive_icon_background: "#fff44336"
-  adaptive_icon_foreground: "assets/icon/icon.png"
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#34c6eb"
+  adaptive_icon_foreground: "assets/icon/icon-fg.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
