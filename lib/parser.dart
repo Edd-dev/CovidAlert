@@ -30,7 +30,8 @@ class Parser {
 
   static double parseDouble(String s) {
     try {
-      return double.parse(s.split("<")[0].replaceAll(",", "").replaceAll("+", ""));
+      return double.parse(
+          s.split("<")[0].replaceAll(",", "").replaceAll("+", ""));
     } catch (e) {
       return 0;
     }
@@ -41,12 +42,16 @@ class Parser {
   }
 
   static String normalizeName(String n) {
-    return n.replaceAll("&ccedil;", "ç").replaceAll("&eacute;", "é").split("<")[0];
+    return n
+        .replaceAll("&ccedil;", "ç")
+        .replaceAll("&eacute;", "é")
+        .split("<")[0];
   }
 
   static Map<String, CountryData> getCountryData(String body) {
     Map<String, CountryData> countryData = {};
-    var row = body.split("<tr class=\"total_row\">")[1].split("</tr>")[0].split(">");
+    var row =
+        body.split("<tr class=\"total_row\">")[1].split("</tr>")[0].split(">");
 
     countryData["Global"] = parseRow(row, true, "");
 
@@ -55,18 +60,31 @@ class Parser {
     rows.skip(1).forEach((rawRow) {
       row = rawRow.split(">");
       bool hasInnerTag = rawRow.contains("</a>") || rawRow.contains("</span>");
-      countryData[normalizeName(row[hasInnerTag ? 4: 3])] =
-          parseRow(row, hasInnerTag, rawRow.contains("</a>") ? getInnerString(rawRow, "href=\"", "\"") : null);
+      countryData[normalizeName(row[hasInnerTag ? 4 : 3])] = parseRow(
+          row,
+          hasInnerTag,
+          rawRow.contains("</a>")
+              ? getInnerString(rawRow, "href=\"", "\"")
+              : null);
     });
     return countryData;
   }
 
   static List<String> getCategories(String s) {
-    return s.split("categories: [")[1].split("]")[0].replaceAll("\"", "").split(",");
+    return s
+        .split("categories: [")[1]
+        .split("]")[0]
+        .replaceAll("\"", "")
+        .split(",");
   }
 
   static List<int> getDataPoints(String s) {
-    return s.split("data: [")[1].split("]")[0].split(",").map(int.parse).toList();
+    return s
+        .split("data: [")[1]
+        .split("]")[0]
+        .split(",")
+        .map(int.parse)
+        .toList();
   }
 
   static ChartsData getChartsData(String body, bool defaultDailyView) {
@@ -90,15 +108,18 @@ class Parser {
     var xLabels3 = getCategories(textToParse);
     var values3 = getDataPoints(textToParse);
 
-    if(recoveredDataAvailable)
+    if (recoveredDataAvailable)
       values2.asMap().forEach((index, value) {
         values2[index] = values[index] - values3[index] - value;
       });
 
     ChartsData cD = new ChartsData();
-    cD.total = new ChartData(xLabels, values, gradientColorsTotal, daily: defaultDailyView);
-    cD.recovered = new ChartData(xLabels2, values2, gradientColorsRecovered, daily: defaultDailyView, available: recoveredDataAvailable);
-    cD.deaths = new ChartData(xLabels3, values3, gradientColorsDeaths, daily: defaultDailyView);
+    cD.total = new ChartData(xLabels, values, gradientColorsTotal,
+        daily: defaultDailyView);
+    cD.recovered = new ChartData(xLabels2, values2, gradientColorsRecovered,
+        daily: defaultDailyView, available: recoveredDataAvailable);
+    cD.deaths = new ChartData(xLabels3, values3, gradientColorsDeaths,
+        daily: defaultDailyView);
 
     return cD;
   }

@@ -26,16 +26,17 @@ class Settings {
 
   Settings clone() {
     return new Settings(
-      alwaysLoadCharts: this.alwaysLoadCharts,
-      defaultDailyView: this.defaultDailyView,
-      loaded: true
-    );
+        alwaysLoadCharts: this.alwaysLoadCharts,
+        defaultDailyView: this.defaultDailyView,
+        loaded: true);
   }
 
   dynamic operator [](String key) {
-    switch(key) {
-      case 'alwaysLoadCharts': return this.alwaysLoadCharts;
-      case 'defaultDailyView': return this.defaultDailyView;
+    switch (key) {
+      case 'alwaysLoadCharts':
+        return this.alwaysLoadCharts;
+      case 'defaultDailyView':
+        return this.defaultDailyView;
     }
   }
 }
@@ -65,8 +66,13 @@ class _SettingsDialogState extends State<SettingsDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: [
-          getSwitchRow("Always load charts", newSettings.alwaysLoadCharts, (v){newSettings.alwaysLoadCharts = v;}),
-          getSwitchRow("Default to daily view", newSettings.defaultDailyView, (v){newSettings.defaultDailyView = v;}),
+          getSwitchRow("Always load charts", newSettings.alwaysLoadCharts, (v) {
+            newSettings.alwaysLoadCharts = v;
+          }),
+          getSwitchRow("Default to daily view", newSettings.defaultDailyView,
+              (v) {
+            newSettings.defaultDailyView = v;
+          }),
         ],
       ),
       actions: <Widget>[
@@ -96,7 +102,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
         Switch(
           value: value,
           onChanged: (newValue) {
-            setState(() {setValue(newValue);});
+            setState(() {
+              setValue(newValue);
+            });
           },
           activeTrackColor: Colors.red[300],
           activeColor: Colors.red,

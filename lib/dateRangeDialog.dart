@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateRangeDialog extends StatefulWidget {
-  DateRangeDialog(this.availableRange, this.currentRange, {Key key}) : super(key: key);
+  DateRangeDialog(this.availableRange, this.currentRange, {Key key})
+      : super(key: key);
   final DateTimeRange availableRange, currentRange;
 
   @override
@@ -25,18 +26,18 @@ class _DateRangeDialogState extends State<DateRangeDialog> {
     super.initState();
 
     preset7 = DateTimeRange(
-        start:  widget.availableRange.end.subtract(Duration(days: 7)),
-        end: widget.availableRange.end
-    );
+        start: widget.availableRange.end.subtract(Duration(days: 7)),
+        end: widget.availableRange.end);
     preset28 = DateTimeRange(
-        start:  widget.availableRange.end.subtract(Duration(days: 28)),
-        end: widget.availableRange.end
-    );
+        start: widget.availableRange.end.subtract(Duration(days: 28)),
+        end: widget.availableRange.end);
 
     selectedRange = widget.currentRange;
     checkForPresets(); //Sets selectedOption
-    fromController = new TextEditingController(text: dateFormat.format(widget.currentRange.start));
-    toController = new TextEditingController(text: dateFormat.format(widget.currentRange.end));
+    fromController = new TextEditingController(
+        text: dateFormat.format(widget.currentRange.start));
+    toController = new TextEditingController(
+        text: dateFormat.format(widget.currentRange.end));
   }
 
   @override
@@ -56,11 +57,11 @@ class _DateRangeDialogState extends State<DateRangeDialog> {
               DropdownMenuItem(child: Text("Everything"), value: 2),
               DropdownMenuItem(child: Text("Custom"), value: 3)
             ],
-            onChanged: (value){
+            onChanged: (value) {
               setState(() {
                 selectedOption = value;
               });
-              switch(value) {
+              switch (value) {
                 case 0:
                   selectedRange = preset7;
                   break;
@@ -89,19 +90,16 @@ class _DateRangeDialogState extends State<DateRangeDialog> {
               ),
               onTap: () async {
                 DateTime newDate = await showDatePicker(
-                  context: context,
-                  initialEntryMode: DatePickerEntryMode.calendar,
-                  firstDate: widget.availableRange.start,
-                  lastDate: widget.availableRange.end,
-                  initialDate: selectedRange.start
-                );
+                    context: context,
+                    initialEntryMode: DatePickerEntryMode.calendar,
+                    firstDate: widget.availableRange.start,
+                    lastDate: widget.availableRange.end,
+                    initialDate: selectedRange.start);
 
-                if(newDate != null && newDate != selectedRange.start) {
+                if (newDate != null && newDate != selectedRange.start) {
                   fromController.text = dateFormat.format(newDate);
-                  selectedRange = DateTimeRange(
-                      start: newDate,
-                      end: selectedRange.end
-                  );
+                  selectedRange =
+                      DateTimeRange(start: newDate, end: selectedRange.end);
                   checkForPresets();
                 }
               },
@@ -115,24 +113,19 @@ class _DateRangeDialogState extends State<DateRangeDialog> {
               textAlign: TextAlign.center,
               controller: toController,
               decoration: InputDecoration(
-                labelText: "To",
-                border: OutlineInputBorder()
-              ),
+                  labelText: "To", border: OutlineInputBorder()),
               onTap: () async {
                 DateTime newDate = await showDatePicker(
-                  context: context,
-                  initialEntryMode: DatePickerEntryMode.calendar,
-                  firstDate: widget.availableRange.start,
-                  lastDate: widget.availableRange.end,
-                  initialDate: selectedRange.end
-                );
+                    context: context,
+                    initialEntryMode: DatePickerEntryMode.calendar,
+                    firstDate: widget.availableRange.start,
+                    lastDate: widget.availableRange.end,
+                    initialDate: selectedRange.end);
 
-                if(newDate != null && newDate != selectedRange.end) {
+                if (newDate != null && newDate != selectedRange.end) {
                   toController.text = dateFormat.format(newDate);
-                  selectedRange = DateTimeRange(
-                    start: selectedRange.start,
-                    end: newDate
-                  );
+                  selectedRange =
+                      DateTimeRange(start: selectedRange.start, end: newDate);
                   checkForPresets();
                 }
               },
@@ -159,11 +152,11 @@ class _DateRangeDialogState extends State<DateRangeDialog> {
   }
 
   void checkForPresets() {
-    if(selectedRange == preset7)
+    if (selectedRange == preset7)
       selectedOption = 0;
-    else if(selectedRange == preset28)
+    else if (selectedRange == preset28)
       selectedOption = 1;
-    else if(selectedRange == widget.availableRange)
+    else if (selectedRange == widget.availableRange)
       selectedOption = 2;
     else
       selectedOption = 3;
